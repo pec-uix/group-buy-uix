@@ -2,16 +2,53 @@
 <html lang="zh-Hant-TW">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>UX Preview</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-    <script type="module" crossorigin src="/group-buy-uix/assets/index-02386e58.js"></script>
-    <link rel="stylesheet" href="/group-buy-uix/assets/index-daabf33e.css">
+    <meta name="googlebot" content="noindex" />
+    <link rel="icon" href="/group-buy-uix/favicon.ico" />
+    <title>團購網</title>
+    <meta property="og:title" content="團購網" />
+    <meta
+      property="og:description"
+      content="統一企業團購網貼近員工日常生活脈動，懂得員工的購物期待，總是能提供物有所值的好商品，無須再去上網搜尋比價，是專屬員工的購物網站，取貨又方便，是個帶給員工便利生活的好平台。"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/group-buy-uix/style.css" />
+    <!-- <script src="/c9f019b30e.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="/group-buy-uix/css/all.min.css" />
+    <link rel="stylesheet" href="/group-buy-uix/css/sharp-regular.min.css" />
+    <script src="/group-buy-uix/index.js"></script>
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          })
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded[0] + (decoded[1] || '') + l.hash
+          )
+        }
+      }(window.location))
+    </script>
+    <script type="module" crossorigin src="/group-buy-uix/assets/index-3f0c6b61.js"></script>
+    <link rel="stylesheet" href="/group-buy-uix/assets/index-922a8948.css">
   </head>
+
   <body>
+    <div class="divClass" id="no-ie">
+      團購網不支持此瀏覽器<br />
+      建議使用Google Chrome來達成更好的體驗
+    </div>
+    <div class="divClass" id="count-down-timer"></div>
     <div id="app"></div>
+    <!-- built files will be auto injected -->
     
   </body>
 </html>
