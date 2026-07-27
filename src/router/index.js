@@ -967,6 +967,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
+  base: import.meta.env.VITE_BASE_URL || '/',
   behavior: 'smooth',
   routes,
   scrollBehavior: (to, from, savedPosition) => {

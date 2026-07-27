@@ -1199,7 +1199,7 @@
                     color="primary"
                     :loading="isSubmitting"
                     @click="beforeSubmit"
-                    :disabled="!paymentType"
+                    :disabled="!paymentType && !isDevPreview"
                   >
                     送出訂單
                   </v-btn>
@@ -2197,6 +2197,10 @@ export default {
     if (localStorage.getItem('agreeReturnPolicy') === 'true') {
       this.agreeReturnPolicy = true
     }
+    if (import.meta.env.VITE_PREVIEW_MODE === 'true') {
+      this.isDevPreview = true
+      return
+    }
     this.counties = counties
     this.zipcodes = zipcodes
     this.updateCreditCardRadioGroup()
@@ -2471,6 +2475,7 @@ export default {
       beforeSubmitDialog: false,
       agreeReturnPolicy: false,
       returnPolicyDialog: false,
+      isDevPreview: false,
       couponInfoDialog: false,
       alreadyInviteColleague: true,
       remindRewardDialog: false,
