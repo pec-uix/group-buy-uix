@@ -1,0 +1,48 @@
+{
+  "name": "group-buy",
+  "version": "0.17.7",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "dependencies": {
+    "@gtm-support/vue2-gtm": "^1.2.0",
+    "@pqina/flip": "^1.7.7",
+    "@splidejs/splide": "^4.1.4",
+    "axios": "^0.21.4",
+    "dayjs": "^1.10.6",
+    "firebase": "^8.10.0",
+    "ftp-srv": "^4.6.3",
+    "image-conversion": "^2.1.1",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "mitt": "^3.0.0",
+    "nanoid": "^3.1.23",
+    "twzipcode-data": "^2.0.0",
+    "uuid": "^3.4.0",
+    "vue": "^2.7.14",
+    "vue-clipboard2": "^0.3.3",
+    "vue-product-zoomer": "^2.0.11",
+    "vue-router": "^3.2.0",
+    "vue-upload-component": "^2.8.22",
+    "vue-virtual-scroller": "^1.1.2",
+    "vue-youtube-embed": "^2.2.2",
+    "vuedraggable": "^2.24.3",
+    "vuetify": "^2.4.0",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.2.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "eslint": "^8.37.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^8.7.1",
+    "prettier": "^2.2.1",
+    "sass": "~1.32.0",
+    "unplugin-vue-components": "^0.24.1",
+    "vite": "^4.2.1"
+  }
+}

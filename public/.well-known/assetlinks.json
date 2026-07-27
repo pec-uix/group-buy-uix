@@ -1,0 +1,23 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.pec.unilife",
+      "sha256_cert_fingerprints": [
+        "BA:46:A7:CB:A2:21:55:18:33:E6:31:9D:09:1A:92:B0:0E:8F:D4:A3:FB:15:04:AC:6A:46:24:74:44:3F:E0:83",
+        "1E:CF:A0:F5:E4:50:29:26:42:9A:65:34:83:CD:20:3B:A2:C3:70:69:99:EB:F7:7A:01:45:5E:BA:F9:B6:A8:40"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.pec.icp",
+      "sha256_cert_fingerprints": [
+        "BA:46:A7:CB:A2:21:55:18:33:E6:31:9D:09:1A:92:B0:0E:8F:D4:A3:FB:15:04:AC:6A:46:24:74:44:3F:E0:83"
+      ]
+    }
+  }
+]

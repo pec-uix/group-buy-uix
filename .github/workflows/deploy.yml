@@ -1,0 +1,67 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  build-and-deploy:
+    runs-on: ${{ github.ref == 'refs/heads/main' && 'self-hosted-main' || 'self-hosted-staging' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: /.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+      
+      - name: Build project
+        run: npm run build
+      
+      - name: Deploy to target directory
+        run: |
+          TARGET_DIR="$HOME/group-buy"
+
+          # 設定目錄
+          LATEST_DIR="$TARGET_DIR/wwwroot"
+          BACKUP_DIR="$TARGET_DIR/backup"
+          
+          echo "部署目錄規劃："
+          echo "  最新版本: $LATEST_DIR"
+          echo "  舊版本備份: $BACKUP_DIR"
+          
+          # 備份舊版本到 backup 目錄
+          if [ -d "$LATEST_DIR" ] && [ "$(ls -A $LATEST_DIR)" ]; then
+            BACKUP_TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+            BACKUP_PATH="$BACKUP_DIR/backup-$BACKUP_TIMESTAMP"
+            echo "備份舊版本到: $BACKUP_PATH"
+            mkdir -p "$BACKUP_PATH"
+            cp -r "$LATEST_DIR"/* "$BACKUP_PATH/" 2>/dev/null || true
+          fi
+          
+          # 複製新構建的檔案到最新版本目錄
+          echo "複製新版本到: $LATEST_DIR"
+          cp -r dist/* "$LATEST_DIR/"
+          
+          echo "✅ 部署完成！"
+      
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ 部署成功！"
+          else
+            echo "❌ 部署失敗！"
+          fi
