@@ -1867,7 +1867,6 @@
         <v-card-actions class="justify-center pb-3 pt-1">
           <v-btn
             depressed
-            rounded
             color="primary"
             class="px-6"
             @click="agreeAndSubmit"
@@ -1876,7 +1875,6 @@
           </v-btn>
           <v-btn
             outlined
-            rounded
             color="primary"
             class="px-6"
             @click="directSubmit"
