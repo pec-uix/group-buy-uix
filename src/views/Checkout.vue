@@ -1857,10 +1857,10 @@
     <v-dialog v-model="returnPolicyDialog" persistent max-width="420">
       <v-card class="return-policy-dialog pa-4">
         <v-card-text class="text-center pb-2 pt-2">
-          <div class="text-h6 font-weight-bold black--text mb-2">
+          <div class="font-weight-bold black--text mb-2" style="font-size:20px">
             ⚠️ 尚未勾選同意事項
           </div>
-          <div class="text-body-2 black--text">
+          <div class="black--text" style="font-size:16px">
             您尚未勾選［我同意辦理退貨時，由團購網代為處理發票及銷貨退回證明單，以加速退貨退款作業］
           </div>
         </v-card-text>
