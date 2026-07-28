@@ -1875,7 +1875,7 @@
             勾選並繼續
           </v-btn>
           <v-btn
-            depressed
+            outlined
             rounded
             color="primary"
             class="px-6"
