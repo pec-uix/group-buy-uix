@@ -1,0 +1,1 @@
+import{n as t,aG as n}from"./index-01706aac.js";const o={components:{CategorySlide:n}};var s=function(){var _=this,e=_._self._c;return e(n)},r=[],l=t(o,s,r,!1,null,null,null,null);const u=l.exports;export{u as default};
