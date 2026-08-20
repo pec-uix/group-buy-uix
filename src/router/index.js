@@ -229,6 +229,14 @@ const routes = [
     },
   },
   {
+    path: '/search-preview',
+    name: 'SearchPreview',
+    components: {
+      default: () => import('../views/SearchPreview.vue'),
+      pageFooter: BottomNavigation,
+    },
+  },
+  {
     path: '/search',
     name: 'Search',
     components: {
@@ -815,6 +823,32 @@ const routes = [
       requireAuth: true,
       requireVerified: true,
     },
+  },
+  {
+    path: '/reward-style-a',
+    name: 'RewardStyleA',
+    components: {
+      default: () => import('../views/RewardStyleA.vue'),
+      pageFooter: BottomNavigation,
+    },
+  },
+  {
+    path: '/reward-style-b',
+    name: 'RewardStyleB',
+    components: {
+      default: () => import('../views/RewardStyleB.vue'),
+      pageFooter: BottomNavigation,
+    },
+  },
+  {
+    path: '/refund-dialog-preview',
+    name: 'RefundDialogPreview',
+    component: () => import('../views/RefundDialogPreview.vue'),
+  },
+  {
+    path: '/checkout-preview',
+    name: 'CheckoutPreview',
+    component: () => import('../views/CheckoutPreview.vue'),
   },
   {
     path: '/cart_group/:groupId',
