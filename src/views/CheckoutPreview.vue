@@ -1170,24 +1170,21 @@
               <v-row class="mt-3">
                 <v-col cols="12">
                   <div
-                    class="return-policy-box"
+                    class="return-policy-box d-flex align-start"
                     :class="agreeReturnPolicy ? 'return-policy-box--checked' : ''"
                     @click="agreeReturnPolicy = !agreeReturnPolicy; onAgreeReturnPolicyChange(agreeReturnPolicy)"
                   >
                     <v-checkbox
                       v-model="agreeReturnPolicy"
                       color="primary darken-2"
-                      class="mt-0 pt-0"
+                      class="mt-0 pt-0 flex-shrink-0"
                       hide-details
                       @change="onAgreeReturnPolicyChange"
                       @click.stop
-                    >
-                      <template v-slot:label>
-                        <span class="font-weight-medium primary--text text--darken-2">
-                          我同意辦理退貨時，由團購網代為處理發票及銷貨退回證明單，以加速退貨退款作業。線上支付退款作業完成後，款項約 7 ~ 14 個工作天退刷。（實際仍以銀行作業為主）
-                        </span>
-                      </template>
-                    </v-checkbox>
+                    ></v-checkbox>
+                    <span class="font-weight-medium primary--text text--darken-2" style="line-height:1.5; padding-top:2px;">
+                      我同意辦理退貨時，由團購網代為處理發票及銷貨退回證明單，以加速退貨退款作業。訂單完成後如有退貨退款需求且原支付方式為線上支付者，於退款作業完成後，其款項約7~14個工作天退刷。（實際仍以各發卡銀行作業時間為主）
+                    </span>
                   </div>
                 </v-col>
               </v-row>
