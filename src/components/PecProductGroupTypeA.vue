@@ -158,6 +158,8 @@ export default {
         { ...base, _variant: 'D1', reward_exclude: 'Y' },
         { ...base, _variant: 'D2', reward_exclude: 'Y' },
         { ...base, _variant: 'D3', reward_exclude: 'Y' },
+        { ...base, _variant: 'E1', reward_exclude: 'Y' },
+        { ...base, _variant: 'E2', reward_exclude: 'Y' },
       ]
     },
     // [MOCK END]
