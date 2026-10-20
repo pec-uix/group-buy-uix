@@ -140,16 +140,17 @@ export default {
   computed: {
     // [MOCK] 四種折價券 UI 方案預覽卡（真實資料優先，無資料時用 fallback）
     mockVariants() {
-      const base = this.productArray[0] || {
+      const raw = this.productArray[0] || {
         product_id: 'mock', product_name: '商品名稱範例文字範例文字範例',
         img_url: '', max_list_price: 500, discount_price: 399,
-        min_discount_price: 399, max_discount_price: 399,
         start_date: '2020-01-01', end_date: '2099-12-31',
         receive_type: '2', teambuy: 'N', inv_num: null,
         reward_exclude: 'Y', subtitle: '',
         order_num: 0, order_num_with_ratio: 0, acc_order_num: 0,
         goal_num: 1, hide_order_num: 'N', noticed: 'N', track_status: 'N',
       }
+      const price = raw.min_discount_price || raw.discount_price || 399
+      const base = { ...raw, min_discount_price: price, max_discount_price: raw.max_discount_price || price }
       return [
         { ...base, _variant: 'A', reward_exclude: 'Y', receive_type: '1:2' },
         { ...base, _variant: 'C', reward_exclude: 'Y' },
