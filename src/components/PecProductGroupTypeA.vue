@@ -152,11 +152,9 @@ export default {
       }
       return [
         { ...base, _variant: 'A', reward_exclude: 'Y', receive_type: '1:2' },
-        { ...base, _variant: 'B', reward_exclude: 'Y' },
         { ...base, _variant: 'C', reward_exclude: 'Y' },
         { ...base, _variant: 'D0', reward_exclude: 'Y', inv_num: 10, order_num_with_ratio: 3 },
         { ...base, _variant: 'D1', reward_exclude: 'Y' },
-        { ...base, _variant: 'D2', reward_exclude: 'Y' },
         { ...base, _variant: 'D3', reward_exclude: 'Y' },
         { ...base, _variant: 'E1', reward_exclude: 'Y' },
         { ...base, _variant: 'E2', reward_exclude: 'Y' },
