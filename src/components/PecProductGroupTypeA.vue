@@ -63,8 +63,8 @@
           <v-col cols="2" class="mb-2" v-for="variant in mockVariants" :key="variant._variant">
             <pec-product-card
               :product="variant"
-              :is-login="isLogin"
-              :is-verified="isVerified"
+              :is-login="true"
+              :is-verified="true"
               :to="{ name: 'Product', params: { productId: 'mock' } }"
             ></pec-product-card>
           </v-col>
@@ -143,6 +143,7 @@ export default {
       const base = this.productArray[0] || {
         product_id: 'mock', product_name: '商品名稱範例文字範例文字範例',
         img_url: '', max_list_price: 500, discount_price: 399,
+        min_discount_price: 399, max_discount_price: 399,
         start_date: '2020-01-01', end_date: '2099-12-31',
         receive_type: '2', teambuy: 'N', inv_num: null,
         reward_exclude: 'Y', subtitle: '',
