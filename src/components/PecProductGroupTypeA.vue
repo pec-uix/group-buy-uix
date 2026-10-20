@@ -57,6 +57,19 @@
     </div>
     <div class="d-none d-lg-flex pa-2">
       <v-container fluid>
+        <!-- [MOCK] 折價券樣式預覽 A/B/C/D -->
+        <div class="text-caption grey--text mb-1">↓ 折價券樣式預覽（A / B / C / D）</div>
+        <v-row dense class="mb-4" style="border-bottom: 2px dashed #ccc; padding-bottom: 16px">
+          <v-col cols="2" class="mb-2" v-for="variant in mockVariants" :key="variant._variant">
+            <pec-product-card
+              :product="variant"
+              :is-login="isLogin"
+              :is-verified="isVerified"
+              :to="{ name: 'Product', params: { productId: 'mock' } }"
+            ></pec-product-card>
+          </v-col>
+        </v-row>
+        <!-- [MOCK END] -->
         <v-row dense>
           <v-col
             cols="2"
@@ -125,6 +138,21 @@ export default {
     PecProductCard,
   },
   computed: {
+    // [MOCK] 四種折價券 UI 方案預覽卡（使用真實第一筆資料）
+    mockVariants() {
+      const base = this.productArray[0]
+      if (!base) return []
+      return [
+        { ...base, _variant: 'A', reward_exclude: 'Y', receive_type: '1:2' },
+        { ...base, _variant: 'B', reward_exclude: 'Y' },
+        { ...base, _variant: 'C', reward_exclude: 'Y' },
+        { ...base, _variant: 'D0', reward_exclude: 'Y', inv_num: 10, order_num_with_ratio: 3 },
+        { ...base, _variant: 'D1', reward_exclude: 'Y' },
+        { ...base, _variant: 'D2', reward_exclude: 'Y' },
+        { ...base, _variant: 'D3', reward_exclude: 'Y' },
+      ]
+    },
+    // [MOCK END]
     filteredProductArray() {
       return this.productArray.filter(
         (_, i) => this.$vuetify.breakpoint.mobile || this.IsExpanded || i < 6

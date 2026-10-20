@@ -27,9 +27,9 @@
       height="100%"
       :style="
         setBorder
-          ? {
-              border: '3px solid #ca1f1d',
-            }
+          ? { border: '3px solid #ca1f1d' }
+          : product._variant === 'C' && product.reward_exclude == 'Y'
+          ? { borderLeft: '4px solid #FF6F00' }
           : {}
       "
     >
@@ -56,7 +56,7 @@
           ></v-img>
         </div>
         <div class="mt-3 text-body-1 pec-product-card-title">
-          {{ product.product_name }}
+          {{ product.product_name }}<!-- 方案 B：icon 接在文字後 --><v-icon v-if="product._variant === 'B' && product.reward_exclude == 'Y'" small color="warning" class="ml-1">local_activity</v-icon>
         </div>
       </div>
 
@@ -71,7 +71,13 @@
               : 'end'
           }`"
         >
-          <div class="d-flex flex-grow-1">
+          <div class="d-flex flex-grow-1" style="flex-wrap: wrap; gap: 2px">
+            <!-- 方案 A：不可折抵 chip 加在 receive type 同一列 -->
+            <span
+              v-if="product._variant === 'A' && product.reward_exclude == 'Y'"
+              style="background-color: #FF6F00; color: white; border-radius: 10px; display: grid; place-items: center;"
+              class="text-caption px-1 mr-1"
+            >不可折抵</span>
             <span
               v-for="item in getReceiveTypeTW"
               :key="item"
@@ -109,7 +115,9 @@
             <span class="text-caption">&emsp;</span>
           </div>
         </div>
-        <div class="d-flex justify-start" style="flex-wrap: wrap-reverse">
+        <div class="d-flex justify-start align-center" style="flex-wrap: wrap-reverse">
+          <!-- 方案 D1：icon 靠左對齊 -->
+          <v-icon v-if="product._variant === 'D1' && product.reward_exclude == 'Y'" size="28" color="warning" class="mr-1">local_activity</v-icon>
           <span
             v-if="isLogin && isVerified"
             class="d-flex text-h5 primary--text hide-text align-center ml-auto"
@@ -164,8 +172,12 @@
         >
           {{ relativeTime(product.end_date) }} ({{
             $dayjs(product.end_date).format('YYYY-MM-DD')
-          }})
+          }})<!-- 方案 D2：icon 在截止日期按鈕內 --><v-icon v-if="product._variant === 'D2' && product.reward_exclude == 'Y'" size="16" color="warning" class="ml-1">local_activity</v-icon>
         </v-alert>
+        <!-- 方案 D3：icon + 文字在截止日期按鈕下方 -->
+        <div v-if="product._variant === 'D3' && product.reward_exclude == 'Y'" class="d-flex align-center mt-1 text-caption warning--text">
+          <v-icon x-small color="warning" class="mr-1">local_activity</v-icon>不可折抵折價券
+        </div>
         <!-- <v-row
           dense
           v-if="
@@ -283,7 +295,7 @@
         :class="`justify-${product.inv_num != null ? 'space-between' : 'end'}`"
       >
         <span v-if="product.inv_num != null">
-          (尙餘{{ getQuotaNum(product) }}件)
+          (尙餘{{ getQuotaNum(product) }}件)<!-- 方案 D0：icon 接在尚餘後 --><v-icon v-if="product._variant === 'D0' && product.reward_exclude == 'Y'" size="16" color="warning" class="ml-1">local_activity</v-icon>
         </span>
         <div class="d-flex">
           <span v-if="showDelBtn">
