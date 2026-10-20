@@ -172,7 +172,7 @@
         >
           {{ relativeTime(product.end_date) }} ({{
             $dayjs(product.end_date).format('YYYY-MM-DD')
-          }})<!-- 方案 D2：icon 在截止日期按鈕內 --><v-icon v-if="product._variant === 'D2' && product.reward_exclude == 'Y'" size="16" color="warning" class="ml-1">local_activity</v-icon>
+          }})
         </v-alert>
         <!-- 方案 D3：icon + 文字在截止日期按鈕下方 -->
         <div v-if="product._variant === 'D3' && product.reward_exclude == 'Y'" class="d-flex align-center mt-1 text-caption warning--text">
