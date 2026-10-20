@@ -138,10 +138,17 @@ export default {
     PecProductCard,
   },
   computed: {
-    // [MOCK] 四種折價券 UI 方案預覽卡（使用真實第一筆資料）
+    // [MOCK] 四種折價券 UI 方案預覽卡（真實資料優先，無資料時用 fallback）
     mockVariants() {
-      const base = this.productArray[0]
-      if (!base) return []
+      const base = this.productArray[0] || {
+        product_id: 'mock', product_name: '商品名稱範例文字範例文字範例',
+        img_url: '', max_list_price: 500, discount_price: 399,
+        start_date: '2020-01-01', end_date: '2099-12-31',
+        receive_type: '2', teambuy: 'N', inv_num: null,
+        reward_exclude: 'Y', subtitle: '',
+        order_num: 0, order_num_with_ratio: 0, acc_order_num: 0,
+        goal_num: 1, hide_order_num: 'N', noticed: 'N', track_status: 'N',
+      }
       return [
         { ...base, _variant: 'A', reward_exclude: 'Y', receive_type: '1:2' },
         { ...base, _variant: 'B', reward_exclude: 'Y' },
