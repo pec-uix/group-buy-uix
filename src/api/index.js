@@ -2,18 +2,11 @@ import axios from 'axios'
 import store from '@/store'
 
 const apiAxios = axios.create({
-  baseURL:
-    location.hostname === 'localhost'
-      ? 'http://localhost:5000/api'
-      : import.meta.env.VITE_ROOT_API,
+  baseURL: import.meta.env.VITE_ROOT_API,
 })
 
 const authAxios = axios.create({
-  // baseURL: import.meta.env.VITE_AUTH_API,
-  baseURL:
-    location.hostname === 'localhost'
-      ? 'http://localhost:5000/api/Account'
-      : import.meta.env.VITE_AUTH_API,
+  baseURL: import.meta.env.VITE_AUTH_API,
 })
 
 class ApiError extends Error {
