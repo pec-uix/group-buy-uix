@@ -61,13 +61,13 @@
           >
             <v-icon size="18" color="white">$pec_ticket</v-icon>
           </div>
-          <!-- 方案 E2：圖片右下角 icon 加斜線 -->
+          <!-- 方案 E2：圖片右下角 icon 圓圈加斜線 -->
           <div
             v-if="product._variant === 'E2' && product.reward_exclude == 'Y'"
-            style="position: absolute; bottom: 4px; right: 4px; width: 30px; height: 30px; z-index: 1;"
+            style="position: absolute; bottom: 4px; right: 4px; background-color: #FF6F00; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; z-index: 1; overflow: hidden;"
           >
-            <v-icon size="28" color="#FF6F00" style="position: absolute; top: 1px; left: 1px;">$pec_ticket</v-icon>
-            <div style="position: absolute; top: 50%; left: -2px; width: calc(100% + 4px); height: 3px; background-color: #D32F2F; transform: translateY(-50%) rotate(-45deg);"></div>
+            <v-icon size="18" color="white">$pec_ticket</v-icon>
+            <div style="position: absolute; top: 50%; left: -4px; width: calc(100% + 8px); height: 3px; background-color: #D32F2F; transform: translateY(-50%) rotate(-45deg);"></div>
           </div>
         </div>
         <div class="mt-3 text-body-1 pec-product-card-title">
