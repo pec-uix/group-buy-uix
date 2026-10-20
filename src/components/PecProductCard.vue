@@ -56,7 +56,7 @@
           ></v-img>
         </div>
         <div class="mt-3 text-body-1 pec-product-card-title">
-          {{ product.product_name }}<!-- 方案 B：icon 接在文字後 --><v-icon v-if="product._variant === 'B' && product.reward_exclude == 'Y'" small color="warning" class="ml-1">local_activity</v-icon>
+          {{ product.product_name }}
         </div>
       </div>
 
