@@ -2258,8 +2258,7 @@ export default {
           prefix: this.prefix,
         },
       }).then(res => {
-        this.product = res.result[0]
-        this.product.reward_exclude = 'Y' // [MOCK] 強制顯示不可折抵提示
+        this.product = { ...res.result[0], reward_exclude: 'Y' } // [MOCK] 強制顯示不可折抵提示
         this.trackCount = res.result[0].product_track_count
         this.trackProductStatus =
           this.product.product_track_status == 'Y' ? true : false
