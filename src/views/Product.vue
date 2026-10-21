@@ -299,6 +299,13 @@
                   </p>
                 </div>
 
+                <h6
+                  class="text-h6 primary--text mb-3"
+                  v-if="product.reward_exclude == 'Y'"
+                >
+                  ※本商品不可折抵折價券
+                </h6>
+
                 <template v-if="isLogin && isVerified">
                   <p class="primary--text d-flex align-center">
                     <span>下殺價格：</span>
@@ -346,12 +353,6 @@
                     <span class="whitespace-nowrap">限定加贈：</span>
                     <span>{{ product.gifts }}</span>
                   </p>
-                  <h6
-                    class="text-h6 primary--text mb-3"
-                    v-if="product.reward_exclude == 'Y'"
-                  >
-                    ※本商品不可折抵折價券
-                  </h6>
                   <!-- <h6
                     class="text-h6 primary--text mb-3"
                     v-if="!product.reward_amount_limit_ratio"
@@ -692,6 +693,14 @@
                   </p>
                 </div>
 
+                <span
+                  class="d-inline-block text-h6 primary--text pt-3"
+                  v-if="product.reward_exclude == 'Y'"
+                  style="width: 100%"
+                >
+                  ※本商品不可折抵折價券
+                </span>
+
                 <template v-if="isLogin && isVerified">
                   <p class="primary--text d-flex align-center flex-wrap">
                     <span>下殺價格：</span>
@@ -716,13 +725,6 @@
                       ></background-svg>
                       分享
                     </v-btn>
-                    <span
-                      class="d-inline-block text-h6 primary--text pt-3"
-                      v-if="product.reward_exclude == 'Y'"
-                      style="width: 100%"
-                    >
-                      ※本商品不可折抵折價券
-                    </span>
                     <!-- <span
                       class="d-inline-block text-h6 primary--text pt-3"
                       v-if="!product.reward_amount_limit_ratio"
