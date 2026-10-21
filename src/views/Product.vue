@@ -1902,6 +1902,7 @@ export default {
         teambuy_price_desc: '',
         receive_type_array: [],
         tb_status: null,
+        reward_exclude: 'Y', // [MOCK] 強制顯示不可折抵提示
       },
       tab: 0,
       orderArray: [],
