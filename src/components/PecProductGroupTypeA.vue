@@ -57,6 +57,19 @@
     </div>
     <div class="d-none d-lg-flex pa-2">
       <v-container fluid>
+        <!-- [MOCK] 折價券樣式預覽 A/B/C/D -->
+        <div class="text-caption grey--text mb-1">↓ 折價券樣式預覽（A / B / C / D）</div>
+        <v-row dense class="mb-4" style="border-bottom: 2px dashed #ccc; padding-bottom: 16px">
+          <v-col cols="2" class="mb-2" v-for="variant in mockVariants" :key="variant._variant">
+            <pec-product-card
+              :product="variant"
+              :is-login="true"
+              :is-verified="true"
+              :to="{ name: 'Product', params: { productId: 'mock' } }"
+            ></pec-product-card>
+          </v-col>
+        </v-row>
+        <!-- [MOCK END] -->
         <v-row dense>
           <v-col
             cols="2"
@@ -125,6 +138,30 @@ export default {
     PecProductCard,
   },
   computed: {
+    // [MOCK] 四種折價券 UI 方案預覽卡（真實資料優先，無資料時用 fallback）
+    mockVariants() {
+      const raw = this.productArray[0] || {
+        product_id: 'mock', product_name: '商品名稱範例文字範例文字範例',
+        img_url: '', max_list_price: 500, discount_price: 399,
+        start_date: '2020-01-01', end_date: '2099-12-31',
+        receive_type: '2', teambuy: 'N', inv_num: null,
+        reward_exclude: 'Y', subtitle: '',
+        order_num: 0, order_num_with_ratio: 0, acc_order_num: 0,
+        goal_num: 1, hide_order_num: 'N', noticed: 'N', track_status: 'N',
+      }
+      const price = raw.min_discount_price || raw.discount_price || 399
+      const base = { ...raw, min_discount_price: price, max_discount_price: raw.max_discount_price || price }
+      return [
+        { ...base, _variant: 'A', reward_exclude: 'Y', receive_type: '1:2' },
+        { ...base, _variant: 'C', reward_exclude: 'Y' },
+        { ...base, _variant: 'D0', reward_exclude: 'Y', inv_num: 10, order_num_with_ratio: 3 },
+        { ...base, _variant: 'D1', reward_exclude: 'Y' },
+        { ...base, _variant: 'D3', reward_exclude: 'Y' },
+        { ...base, _variant: 'E1', reward_exclude: 'Y' },
+        { ...base, _variant: 'E2', reward_exclude: 'Y' },
+      ]
+    },
+    // [MOCK END]
     filteredProductArray() {
       return this.productArray.filter(
         (_, i) => this.$vuetify.breakpoint.mobile || this.IsExpanded || i < 6

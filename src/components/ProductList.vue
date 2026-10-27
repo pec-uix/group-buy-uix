@@ -646,6 +646,19 @@
               ></v-pagination></div
           ></v-col>
         </v-row>
+        <!-- [MOCK] 折價券 UI 方案預覽 A/B/C/D -->
+        <v-row dense class="mb-4">
+          <v-col cols="12"><div class="text-caption grey--text px-1">↓ 折價券樣式預覽（A/B/C/D）</div></v-col>
+          <v-col cols="6" sm="4" md="3" v-for="variant in mockVariants" :key="variant._variant">
+            <pec-product-card
+              :product="variant"
+              :to="{ name: 'Product', params: { productId: 'mock' } }"
+              :is-login="true"
+              :is-verified="true"
+            ></pec-product-card>
+          </v-col>
+        </v-row>
+        <!-- [MOCK END] -->
         <v-row
           dense
           v-if="!isLoading && !gridView && productArrayfilter.length > 0"
@@ -943,6 +956,22 @@ export default {
   },
   computed: {
     ...mapGetters(['isLogin', 'isVerified']),
+    // [MOCK] 四張預覽卡資料
+    mockVariants() {
+      const base = {
+        product_id: 'mock', product_name: '商品名稱範例文字', img_url: '',
+        max_list_price: 500, discount_price: 399, start_date: '2020-01-01',
+        end_date: '2099-12-31', receive_type: '2', teambuy: 'N',
+        inv_num: null, reward_exclude: 'Y', subtitle: '',
+      }
+      return [
+        { ...base, _variant: 'A', product_name: '方案 A：chip 標示' },
+        { ...base, _variant: 'B', product_name: '方案 B：名稱旁 icon' },
+        { ...base, _variant: 'C', product_name: '方案 C：左側色條' },
+        { ...base, _variant: 'D', product_name: '方案 D：不標示（維持原樣）', reward_exclude: 'N' },
+      ]
+    },
+    // [MOCK END]
     violationArray() {
       return this.productArraySorted.filter(product => {
         return product.expired == 'Y'

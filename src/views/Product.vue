@@ -1837,9 +1837,6 @@ export default {
     ]).then(() => {
       this.GA4_view_item()
       if (window.previousUrl == '/share') {
-        // this.$snackbar.add(`請分享此商品賺取 OPEN POINT`, {
-        //   color: 'success',
-        // })
         this.isFromShare = 'Y'
         this.isOpenTour = true
         let anchor =
@@ -1904,6 +1901,8 @@ export default {
         origin: '',
         teambuy_price_desc: '',
         receive_type_array: [],
+        tb_status: null,
+        reward_exclude: 'Y', // [MOCK] 強制顯示不可折抵提示
       },
       tab: 0,
       orderArray: [],
@@ -2260,7 +2259,7 @@ export default {
           prefix: this.prefix,
         },
       }).then(res => {
-        this.product = res.result[0]
+        this.product = { ...res.result[0], reward_exclude: 'Y' } // [MOCK] 強制顯示不可折抵提示
         this.trackCount = res.result[0].product_track_count
         this.trackProductStatus =
           this.product.product_track_status == 'Y' ? true : false

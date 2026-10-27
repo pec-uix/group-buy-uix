@@ -1,6 +1,7 @@
 <template>
   <v-app v-scroll="onScroll">
     <v-app-bar
+      v-if="!isPreviewMode"
       app
       :height="$vuetify.breakpoint.mobile ? 72 : PCHotKeyWordsH"
       color="white"
@@ -2345,6 +2346,7 @@ export default {
   },
   data() {
     return {
+      isPreviewMode: import.meta.env.VITE_PREVIEW_MODE === 'true',
       showAppPrompt: false,
       isExpandedButtonGroup: true,
       expanded: [1],

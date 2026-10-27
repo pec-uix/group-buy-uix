@@ -997,6 +997,11 @@ const routes = [
       keepAlive: false,
     },
   },
+  {
+    path: '/coupon-preview',
+    name: 'CouponPreview',
+    component: () => import('../views/CouponPreview.vue'),
+  },
 ]
 
 const router = new VueRouter({

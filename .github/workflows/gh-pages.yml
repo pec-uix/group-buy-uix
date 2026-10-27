@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feat/preview-coupon-ui
 
 jobs:
   deploy:

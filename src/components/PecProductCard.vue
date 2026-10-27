@@ -27,9 +27,9 @@
       height="100%"
       :style="
         setBorder
-          ? {
-              border: '3px solid #ca1f1d',
-            }
+          ? { border: '3px solid #ca1f1d' }
+          : product._variant === 'C' && product.reward_exclude == 'Y'
+          ? { borderLeft: '4px solid #FF6F00' }
           : {}
       "
     >
@@ -54,6 +54,21 @@
             width="100%"
             contain
           ></v-img>
+          <!-- 方案 E1：圖片右下角 icon 圓圈 -->
+          <div
+            v-if="product._variant === 'E1' && product.reward_exclude == 'Y'"
+            style="position: absolute; bottom: 4px; right: 4px; background-color: #FF6F00; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; z-index: 1;"
+          >
+            <v-icon size="18" color="white">$pec_ticket</v-icon>
+          </div>
+          <!-- 方案 E2：圖片右下角 icon 圓圈加斜線 -->
+          <div
+            v-if="product._variant === 'E2' && product.reward_exclude == 'Y'"
+            style="position: absolute; bottom: 4px; right: 4px; background-color: #FF6F00; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; z-index: 1; overflow: hidden;"
+          >
+            <v-icon size="18" color="white">$pec_ticket</v-icon>
+            <div style="position: absolute; top: 50%; left: -4px; width: calc(100% + 8px); height: 3px; background-color: #D32F2F; transform: translateY(-50%) rotate(-45deg);"></div>
+          </div>
         </div>
         <div class="mt-3 text-body-1 pec-product-card-title">
           {{ product.product_name }}
@@ -71,7 +86,13 @@
               : 'end'
           }`"
         >
-          <div class="d-flex flex-grow-1">
+          <div class="d-flex flex-grow-1" style="flex-wrap: wrap; gap: 2px">
+            <!-- 方案 A：不可折抵 chip 加在 receive type 同一列 -->
+            <span
+              v-if="product._variant === 'A' && product.reward_exclude == 'Y'"
+              style="background-color: #FF6F00; color: white; border-radius: 10px; display: grid; place-items: center;"
+              class="text-caption px-1 mr-1"
+            >不可折抵</span>
             <span
               v-for="item in getReceiveTypeTW"
               :key="item"
@@ -109,7 +130,9 @@
             <span class="text-caption">&emsp;</span>
           </div>
         </div>
-        <div class="d-flex justify-start" style="flex-wrap: wrap-reverse">
+        <div class="d-flex justify-start align-center" style="flex-wrap: wrap-reverse">
+          <!-- 方案 D1：icon 靠左對齊 -->
+          <v-icon v-if="product._variant === 'D1' && product.reward_exclude == 'Y'" size="28" color="#FF6F00" class="mr-1">$pec_ticket</v-icon>
           <span
             v-if="isLogin && isVerified"
             class="d-flex text-h5 primary--text hide-text align-center ml-auto"
@@ -166,6 +189,10 @@
             $dayjs(product.end_date).format('YYYY-MM-DD')
           }})
         </v-alert>
+        <!-- 方案 D3：icon + 文字在截止日期按鈕下方 -->
+        <div v-if="product._variant === 'D3' && product.reward_exclude == 'Y'" class="d-flex align-center mt-1 text-caption" style="color: #FF6F00">
+          <v-icon x-small color="#FF6F00" class="mr-1">$pec_ticket</v-icon>不可折抵折價券
+        </div>
         <!-- <v-row
           dense
           v-if="
@@ -283,7 +310,7 @@
         :class="`justify-${product.inv_num != null ? 'space-between' : 'end'}`"
       >
         <span v-if="product.inv_num != null">
-          (尙餘{{ getQuotaNum(product) }}件)
+          (尙餘{{ getQuotaNum(product) }}件)<!-- 方案 D0：icon 接在尚餘後 --><v-icon v-if="product._variant === 'D0' && product.reward_exclude == 'Y'" size="16" color="#FF6F00" class="ml-1">$pec_ticket</v-icon>
         </span>
         <div class="d-flex">
           <span v-if="showDelBtn">

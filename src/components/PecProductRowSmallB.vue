@@ -142,6 +142,10 @@
                 </v-btn>
               </div>
             </div>
+            <!-- 方案 D3：不可折抵折價券 -->
+            <div v-if="product._variant === 'D3' && product.reward_exclude == 'Y'" class="d-flex align-center mt-1 text-caption" style="color: #FF6F00">
+              <v-icon x-small color="#FF6F00" class="mr-1">$pec_ticket</v-icon>不可折抵折價券
+            </div>
           </template>
         </v-col>
       </v-row>
