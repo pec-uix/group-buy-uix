@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>不可折抵折價券 UI 設計稿</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Roboto", "Noto Sans TC", sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+    .label {
+      font-size: 11px;
+      color: #9e9e9e;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .card {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.12);
+      width: 200px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .img-wrap {
+      background: #f0f0f0;
+      aspect-ratio: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-placeholder {
+      width: 80px;
+      opacity: 0.25;
+    }
+    .title {
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 10px 2px 6px;
+      color: #212121;
+    }
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 2px;
+    }
+    .badge-wrap { display: flex; flex-wrap: wrap; gap: 2px; }
+    .badge {
+      font-size: 11px;
+      color: white;
+      background: #02835E;
+      border-radius: 10px;
+      padding: 1px 6px;
+    }
+    .original-price {
+      font-size: 11px;
+      color: #757575;
+      text-decoration: line-through;
+    }
+    .price-main {
+      display: flex;
+      align-items: center;
+      margin: 2px 2px 0;
+    }
+    .price-value {
+      font-size: 24px;
+      font-weight: 500;
+      color: #ca1f1d;
+    }
+    .countdown-btn {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 4px 0;
+      text-align: center;
+      border: 1px solid #ca1f1d;
+      border-radius: 4px;
+      color: #ca1f1d;
+      font-size: 11px;
+      font-weight: 700;
+      background: white;
+      cursor: default;
+    }
+    .no-coupon {
+      display: flex;
+      align-items: center;
+      margin-top: 4px;
+      font-size: 11px;
+      color: #FF6F00;
+    }
+    .ticket-icon {
+      width: 13px;
+      height: 12px;
+      margin-right: 3px;
+      flex-shrink: 0;
+    }
+    .stats {
+      font-size: 11px;
+      color: #424242;
+      margin-top: 6px;
+    }
+    .bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+    .remain {
+      font-size: 11px;
+      color: #424242;
+    }
+    .icons {
+      display: flex;
+      gap: 2px;
+    }
+    .icon-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: #ca1f1d;
+    }
+    .icon-btn svg { width: 18px; height: 18px; }
+  </style>
+</head>
+<body>
+  <div class="label">不可折抵折價券 UI 設計稿（D3 方案）</div>
+  <div class="card">
+    <div>
+      <div class="img-wrap">
+        <!-- 商品圖佔位 -->
+        <svg class="img-placeholder" viewBox="0 0 24 24" fill="#999">
+          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+      </div>
+      <div class="title">【御衣坊】檸檬水晶濃縮洗衣精補充包2000ml</div>
+    </div>
+
+    <div style="margin-top: 12px;">
+      <div class="price-row">
+        <div class="badge-wrap">
+          <span class="badge">宅配</span>
+        </div>
+        <span class="original-price">原價$1,300</span>
+      </div>
+      <div class="price-main">
+        <span class="price-value">$399</span>
+      </div>
+
+      <div class="countdown-btn">倒數8個月 (2027-06-07)</div>
+
+      <div class="no-coupon">
+        <svg class="ticket-icon" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18C9 17.6022 8.84196 17.2206 8.56066 16.9393C8.27936 16.658 7.89782 16.5 7.5 16.5C7.10218 16.5 6.72064 16.658 6.43934 16.9393C6.15804 17.2206 6 17.6022 6 18H1C0.734784 18 0.48043 17.8946 0.292893 17.7071C0.105357 17.5196 0 17.2652 0 17V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H6C6 0.397825 6.15804 0.779356 6.43934 1.06066C6.72064 1.34196 7.10218 1.5 7.5 1.5C7.89782 1.5 8.27936 1.34196 8.56066 1.06066C8.84196 0.779356 9 0.397825 9 0H19C19.2652 0 19.5196 0.105357 19.7071 0.292893C19.8946 0.48043 20 0.734784 20 1V6.5C19.337 6.5 18.7011 6.76339 18.2322 7.23223C17.7634 7.70107 17.5 8.33696 17.5 9C17.5 9.66304 17.7634 10.2989 18.2322 10.7678C18.7011 11.2366 19.337 11.5 20 11.5V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18H9ZM7.5 7.5C7.89782 7.5 8.27936 7.34196 8.56066 7.06066C8.84196 6.77936 9 6.39782 9 6C9 5.60218 8.84196 5.22064 8.56066 4.93934C8.27936 4.65804 7.89782 4.5 7.5 4.5C7.10218 4.5 6.72064 4.65804 6.43934 4.93934C6.15804 5.22064 6 5.60218 6 6C6 6.39782 6.15804 6.77936 6.43934 7.06066C6.72064 7.34196 7.10218 7.5 7.5 7.5ZM7.5 13.5C7.89782 13.5 8.27936 13.342 8.56066 13.0607C8.84196 12.7794 9 12.3978 9 12C9 11.6022 8.84196 11.2206 8.56066 10.9393C8.27936 10.658 7.89782 10.5 7.5 10.5C7.10218 10.5 6.72064 10.658 6.43934 10.9393C6.15804 11.2206 6 11.6022 6 12C6 12.3978 6.15804 12.7794 6.43934 13.0607C6.72064 13.342 7.10218 13.5 7.5 13.5Z" fill="#FF6F00"/>
+        </svg>
+        不可折抵折價券
+      </div>
+
+      <div class="stats">累積:87件 成團:1 件</div>
+      <div class="bottom-row">
+        <span class="remain">(尚餘17件)</span>
+        <div class="icons">
+          <!-- 心願 -->
+          <button class="icon-btn" title="追蹤">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </button>
+          <!-- 購物車 -->
+          <button class="icon-btn" title="加入購物車">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
