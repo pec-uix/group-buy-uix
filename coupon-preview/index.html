@@ -3,34 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>不可折抵折價券 UI 設計稿</title>
+  <title>不可折抵折價券 D3 UI 設計稿</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Roboto", "Noto Sans TC", sans-serif;
       background: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 16px;
+      color: #212121;
+      padding: 32px 24px 64px;
     }
-    .label {
+
+    /* ── 標題區 ── */
+    h1 { font-size: 18px; font-weight: 600; color: #212121; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: #757575; margin-bottom: 32px; }
+
+    /* ── 章節標題 ── */
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #9e9e9e;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    section { margin-bottom: 48px; }
+
+    /* ── 並排展示 ── */
+    .cards-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .card-demo { display: flex; flex-direction: column; gap: 8px; }
+    .card-label {
       font-size: 11px;
       color: #9e9e9e;
+      font-weight: 500;
       text-align: center;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
     }
-    .card {
+
+    /* ── 直式卡片 ── */
+    .card-vertical {
       background: white;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,.12);
       width: 200px;
       padding: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
     .img-wrap {
       background: #f0f0f0;
@@ -40,157 +61,356 @@
       align-items: center;
       justify-content: center;
     }
-    .img-placeholder {
-      width: 80px;
-      opacity: 0.25;
+    .img-wrap svg { width: 60px; opacity: .2; }
+
+    /* ── 橫式卡片 ── */
+    .card-horizontal {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 8px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
-    .title {
-      font-size: 14px;
+    .card-horizontal-inner { display: flex; gap: 12px; align-items: flex-start; }
+    .card-h-img {
+      flex-shrink: 0;
+      width: 70px;
+      height: 70px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-h-img svg { width: 32px; opacity: .2; }
+    .card-h-body { flex: 1; }
+
+    /* ── 共用卡片元素 ── */
+    .card-title {
+      font-size: 13px;
       line-height: 1.4;
-      margin: 10px 2px 6px;
+      margin: 8px 2px 4px;
       color: #212121;
     }
-    .price-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 0 2px;
-    }
-    .badge-wrap { display: flex; flex-wrap: wrap; gap: 2px; }
-    .badge {
-      font-size: 11px;
-      color: white;
-      background: #02835E;
-      border-radius: 10px;
-      padding: 1px 6px;
-    }
-    .original-price {
-      font-size: 11px;
-      color: #757575;
-      text-decoration: line-through;
-    }
-    .price-main {
-      display: flex;
-      align-items: center;
-      margin: 2px 2px 0;
-    }
-    .price-value {
-      font-size: 24px;
-      font-weight: 500;
-      color: #ca1f1d;
-    }
+    .card-h-title { font-size: 12px; line-height: 1.3; color: #212121; margin-bottom: 4px; }
+    .price-big { font-size: 22px; font-weight: 400; color: #ca1f1d; }
+    .price-big-h { font-size: 20px; font-weight: 400; color: #ca1f1d; }
+    .price-orig { font-size: 11px; color: #9e9e9e; text-decoration: line-through; }
+    .badge { font-size: 11px; color: white; background: #02835E; border-radius: 10px; padding: 1px 6px; display: inline-block; }
     .countdown-btn {
-      display: block;
-      width: 100%;
-      margin-top: 6px;
-      padding: 4px 0;
-      text-align: center;
-      border: 1px solid #ca1f1d;
-      border-radius: 4px;
-      color: #ca1f1d;
-      font-size: 11px;
-      font-weight: 700;
-      background: white;
-      cursor: default;
+      display: block; width: 100%; margin-top: 6px; padding: 4px 0;
+      text-align: center; border: 1px solid #ca1f1d; border-radius: 4px;
+      color: #ca1f1d; font-size: 11px; font-weight: 700; background: white;
     }
     .no-coupon {
-      display: flex;
-      align-items: center;
-      margin-top: 4px;
-      font-size: 11px;
-      color: #FF6F00;
+      display: flex; align-items: center;
+      font-size: 11px; color: #FF6F00; margin-top: 4px;
     }
-    .ticket-icon {
-      width: 13px;
-      height: 12px;
-      margin-right: 3px;
-      flex-shrink: 0;
-    }
-    .stats {
-      font-size: 11px;
-      color: #424242;
-      margin-top: 6px;
-    }
+    .no-coupon svg { width: 13px; height: 12px; margin-right: 3px; flex-shrink: 0; }
+    .stats { font-size: 11px; color: #424242; margin-top: 6px; }
     .bottom-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 2px;
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: 2px;
     }
-    .remain {
-      font-size: 11px;
-      color: #424242;
-    }
-    .icons {
-      display: flex;
-      gap: 2px;
-    }
+    .remain { font-size: 11px; color: #424242; }
+    .icons { display: flex; }
     .icon-btn {
-      width: 28px;
-      height: 28px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      color: #ca1f1d;
+      width: 28px; height: 28px; border: none; background: transparent;
+      cursor: pointer; display: grid; place-items: center; color: #ca1f1d;
     }
     .icon-btn svg { width: 18px; height: 18px; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 2px; }
+    .badge-wrap { display: flex; gap: 2px; }
+    .h-bottom { display: flex; justify-content: space-between; align-items: center; }
+
+    /* ── RWD 裝置框 ── */
+    .devices-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .device-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .device-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #424242;
+      text-align: center;
+    }
+    .device-hint { font-size: 11px; color: #9e9e9e; text-align: center; }
+
+    /* 手機框 375px */
+    .phone-frame {
+      width: 375px;
+      border: 2px solid #bdbdbd;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+    .phone-bar {
+      background: white;
+      height: 36px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .phone-dot { width: 8px; height: 8px; border-radius: 50%; background: #e0e0e0; }
+    .phone-content { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .phone-section-title { font-size: 11px; color: #9e9e9e; margin-bottom: 6px; }
+    /* 在手機框裡，直式卡片以 grid 排列 */
+    .phone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .phone-card {
+      background: white; border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.1); padding: 4px;
+    }
+
+    /* 桌機框 */
+    .desktop-frame {
+      width: 500px;
+      border: 2px solid #bdbdbd;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+    .desktop-bar {
+      background: white;
+      height: 32px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+    .desktop-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .desktop-content { padding: 12px; display: flex; flex-direction: column; gap: 0; }
+    .drawer-title { font-size: 12px; font-weight: 600; color: #424242; padding: 4px 0 8px; border-bottom: 1px solid #e0e0e0; margin-bottom: 4px; }
+
+    /* 票券 SVG 路徑 (共用) */
+    .ticket-path {
+      fill: #FF6F00;
+    }
   </style>
 </head>
 <body>
-  <div class="label">不可折抵折價券 UI 設計稿（D3 方案）</div>
-  <div class="card">
-    <div>
-      <div class="img-wrap">
-        <!-- 商品圖佔位 -->
-        <svg class="img-placeholder" viewBox="0 0 24 24" fill="#999">
-          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-        </svg>
-      </div>
-      <div class="title">【御衣坊】檸檬水晶濃縮洗衣精補充包2000ml</div>
-    </div>
 
-    <div style="margin-top: 12px;">
-      <div class="price-row">
-        <div class="badge-wrap">
-          <span class="badge">宅配</span>
-        </div>
-        <span class="original-price">原價$1,300</span>
-      </div>
-      <div class="price-main">
-        <span class="price-value">$399</span>
-      </div>
+  <h1>不可折抵折價券 — D3 UI 設計稿</h1>
+  <p class="subtitle">設計選定方案：倒數日期按鈕下方顯示票券 icon + 文字</p>
 
-      <div class="countdown-btn">倒數8個月 (2027-06-07)</div>
+  <!-- ─────────────── 並排：直式 vs 橫式 ─────────────── -->
+  <section>
+    <div class="section-title">卡片類型對照</div>
+    <div class="cards-row">
 
-      <div class="no-coupon">
-        <svg class="ticket-icon" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 18C9 17.6022 8.84196 17.2206 8.56066 16.9393C8.27936 16.658 7.89782 16.5 7.5 16.5C7.10218 16.5 6.72064 16.658 6.43934 16.9393C6.15804 17.2206 6 17.6022 6 18H1C0.734784 18 0.48043 17.8946 0.292893 17.7071C0.105357 17.5196 0 17.2652 0 17V1C0 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H6C6 0.397825 6.15804 0.779356 6.43934 1.06066C6.72064 1.34196 7.10218 1.5 7.5 1.5C7.89782 1.5 8.27936 1.34196 8.56066 1.06066C8.84196 0.779356 9 0.397825 9 0H19C19.2652 0 19.5196 0.105357 19.7071 0.292893C19.8946 0.48043 20 0.734784 20 1V6.5C19.337 6.5 18.7011 6.76339 18.2322 7.23223C17.7634 7.70107 17.5 8.33696 17.5 9C17.5 9.66304 17.7634 10.2989 18.2322 10.7678C18.7011 11.2366 19.337 11.5 20 11.5V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18H9ZM7.5 7.5C7.89782 7.5 8.27936 7.34196 8.56066 7.06066C8.84196 6.77936 9 6.39782 9 6C9 5.60218 8.84196 5.22064 8.56066 4.93934C8.27936 4.65804 7.89782 4.5 7.5 4.5C7.10218 4.5 6.72064 4.65804 6.43934 4.93934C6.15804 5.22064 6 5.60218 6 6C6 6.39782 6.15804 6.77936 6.43934 7.06066C6.72064 7.34196 7.10218 7.5 7.5 7.5ZM7.5 13.5C7.89782 13.5 8.27936 13.342 8.56066 13.0607C8.84196 12.7794 9 12.3978 9 12C9 11.6022 8.84196 11.2206 8.56066 10.9393C8.27936 10.658 7.89782 10.5 7.5 10.5C7.10218 10.5 6.72064 10.658 6.43934 10.9393C6.15804 11.2206 6 11.6022 6 12C6 12.3978 6.15804 12.7794 6.43934 13.0607C6.72064 13.342 7.10218 13.5 7.5 13.5Z" fill="#FF6F00"/>
-        </svg>
-        不可折抵折價券
-      </div>
-
-      <div class="stats">累積:87件 成團:1 件</div>
-      <div class="bottom-row">
-        <span class="remain">(尚餘17件)</span>
-        <div class="icons">
-          <!-- 心願 -->
-          <button class="icon-btn" title="追蹤">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-          </button>
-          <!-- 購物車 -->
-          <button class="icon-btn" title="加入購物車">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-            </svg>
-          </button>
+      <!-- 直式卡片 -->
+      <div class="card-demo">
+        <div class="card-label">直式卡片（商品列表）</div>
+        <div class="card-vertical">
+          <div class="img-wrap"><svg viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+          <div class="card-title">【御衣坊】檸檬水晶濃縮洗衣精補充包2000ml</div>
+          <div class="price-row">
+            <div class="badge-wrap"><span class="badge">宅配</span></div>
+            <span class="price-orig">原價$1,300</span>
+          </div>
+          <div style="margin: 0 2px;"><span class="price-big">$399</span></div>
+          <div class="countdown-btn">倒數8個月 (2027-06-07)</div>
+          <div class="no-coupon">
+            <svg viewBox="0 0 20 18" fill="none"><path class="ticket-path" d="M9 18C9 17.6 8.84 17.22 8.56 16.94C8.28 16.66 7.9 16.5 7.5 16.5C7.1 16.5 6.72 16.66 6.44 16.94C6.16 17.22 6 17.6 6 18H1C.73 18 .48 17.89 .29 17.71C.11 17.52 0 17.27 0 17V1C0 .73 .11 .48 .29 .29C.48 .11 .73 0 1 0H6C6 .4 6.16 .78 6.44 1.06C6.72 1.34 7.1 1.5 7.5 1.5C7.9 1.5 8.28 1.34 8.56 1.06C8.84 .78 9 .4 9 0H19C19.27 0 19.52 .11 19.71 .29C19.89 .48 20 .73 20 1V6.5C19.34 6.5 18.7 6.76 18.23 7.23C17.76 7.7 17.5 8.34 17.5 9C17.5 9.66 17.76 10.3 18.23 10.77C18.7 11.24 19.34 11.5 20 11.5V17C20 17.27 19.89 17.52 19.71 17.71C19.52 17.89 19.27 18 19 18H9ZM7.5 7.5C7.9 7.5 8.28 7.34 8.56 7.06C8.84 6.78 9 6.4 9 6C9 5.6 8.84 5.22 8.56 4.94C8.28 4.66 7.9 4.5 7.5 4.5C7.1 4.5 6.72 4.66 6.44 4.94C6.16 5.22 6 5.6 6 6C6 6.4 6.16 6.78 6.44 7.06C6.72 7.34 7.1 7.5 7.5 7.5ZM7.5 13.5C7.9 13.5 8.28 13.34 8.56 13.06C8.84 12.78 9 12.4 9 12C9 11.6 8.84 11.22 8.56 10.94C8.28 10.66 7.9 10.5 7.5 10.5C7.1 10.5 6.72 10.66 6.44 10.94C6.16 11.22 6 11.6 6 12C6 12.4 6.16 12.78 6.44 13.06C6.72 13.34 7.1 13.5 7.5 13.5Z"/></svg>
+            不可折抵折價券
+          </div>
+          <div class="stats">累積:87件 成團:1 件</div>
+          <div class="bottom-row">
+            <span class="remain">(尚餘17件)</span>
+            <div class="icons">
+              <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- 橫式卡片 -->
+      <div class="card-demo">
+        <div class="card-label">橫式卡片（瀏覽紀錄 / 追蹤清單）</div>
+        <div class="card-horizontal">
+          <div class="card-horizontal-inner">
+            <div class="card-h-img"><svg viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+            <div class="card-h-body">
+              <div class="card-h-title">【御衣坊】檸檬水晶濃縮洗衣精補充包2000ml</div>
+              <div class="price-big-h">$399</div>
+            </div>
+          </div>
+          <div class="h-bottom">
+            <div class="badge-wrap"><span class="badge">宅配</span></div>
+            <div class="icons">
+              <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+            </div>
+          </div>
+          <div class="no-coupon">
+            <svg viewBox="0 0 20 18" fill="none"><path class="ticket-path" d="M9 18C9 17.6 8.84 17.22 8.56 16.94C8.28 16.66 7.9 16.5 7.5 16.5C7.1 16.5 6.72 16.66 6.44 16.94C6.16 17.22 6 17.6 6 18H1C.73 18 .48 17.89 .29 17.71C.11 17.52 0 17.27 0 17V1C0 .73 .11 .48 .29 .29C.48 .11 .73 0 1 0H6C6 .4 6.16 .78 6.44 1.06C6.72 1.34 7.1 1.5 7.5 1.5C7.9 1.5 8.28 1.34 8.56 1.06C8.84 .78 9 .4 9 0H19C19.27 0 19.52 .11 19.71 .29C19.89 .48 20 .73 20 1V6.5C19.34 6.5 18.7 6.76 18.23 7.23C17.76 7.7 17.5 8.34 17.5 9C17.5 9.66 17.76 10.3 18.23 10.77C18.7 11.24 19.34 11.5 20 11.5V17C20 17.27 19.89 17.52 19.71 17.71C19.52 17.89 19.27 18 19 18H9ZM7.5 7.5C7.9 7.5 8.28 7.34 8.56 7.06C8.84 6.78 9 6.4 9 6C9 5.6 8.84 5.22 8.56 4.94C8.28 4.66 7.9 4.5 7.5 4.5C7.1 4.5 6.72 4.66 6.44 4.94C6.16 5.22 6 5.6 6 6C6 6.4 6.16 6.78 6.44 7.06C6.72 7.34 7.1 7.5 7.5 7.5ZM7.5 13.5C7.9 13.5 8.28 13.34 8.56 13.06C8.84 12.78 9 12.4 9 12C9 11.6 8.84 11.22 8.56 10.94C8.28 10.66 7.9 10.5 7.5 10.5C7.1 10.5 6.72 10.66 6.44 10.94C6.16 11.22 6 11.6 6 12C6 12.4 6.16 12.78 6.44 13.06C6.72 13.34 7.1 13.5 7.5 13.5Z"/></svg>
+            不可折抵折價券
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
+
+  <!-- ─────────────── RWD 裝置模擬 ─────────────── -->
+  <section>
+    <div class="section-title">RWD 裝置模擬</div>
+    <div class="devices-row">
+
+      <!-- 手機 375px -->
+      <div class="device-wrap">
+        <div class="device-label">📱 手機 375px</div>
+        <div class="device-hint">商品列表 → 直式卡片，2 欄排列</div>
+        <div class="phone-frame">
+          <div class="phone-bar">
+            <div class="phone-dot"></div><div class="phone-dot"></div><div class="phone-dot"></div>
+            <span style="font-size:10px;color:#9e9e9e;margin-left:4px;">pec-uix.github.io</span>
+          </div>
+          <div class="phone-content">
+            <div class="phone-section-title">為你推薦</div>
+            <div class="phone-grid">
+              <!-- 卡 1：D3 -->
+              <div class="phone-card">
+                <div class="img-wrap" style="background:#f0f0f0;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><svg style="width:28px;opacity:.2" viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                <div style="font-size:11px;line-height:1.3;margin:6px 2px 3px;color:#212121;">【御衣坊】檸檬水晶濃縮洗衣精</div>
+                <div style="display:flex;justify-content:space-between;margin:0 2px 2px;align-items:center;">
+                  <span style="font-size:10px;color:white;background:#02835E;border-radius:8px;padding:1px 5px;">宅配</span>
+                  <span style="font-size:10px;color:#9e9e9e;text-decoration:line-through;">$1,300</span>
+                </div>
+                <div style="font-size:18px;color:#ca1f1d;margin:0 2px;">$399</div>
+                <div style="margin-top:4px;padding:3px 0;text-align:center;border:1px solid #ca1f1d;border-radius:3px;color:#ca1f1d;font-size:9px;font-weight:700;">倒數8個月</div>
+                <div style="display:flex;align-items:center;margin-top:3px;font-size:9px;color:#FF6F00;">
+                  <svg style="width:10px;height:9px;margin-right:2px;flex-shrink:0;" viewBox="0 0 20 18" fill="none"><path fill="#FF6F00" d="M9 18C9 17.6 8.84 17.22 8.56 16.94C8.28 16.66 7.9 16.5 7.5 16.5C7.1 16.5 6.72 16.66 6.44 16.94C6.16 17.22 6 17.6 6 18H1C.73 18 .48 17.89 .29 17.71C.11 17.52 0 17.27 0 17V1C0 .73 .11 .48 .29 .29C.48 .11 .73 0 1 0H6C6 .4 6.16 .78 6.44 1.06C6.72 1.34 7.1 1.5 7.5 1.5C7.9 1.5 8.28 1.34 8.56 1.06C8.84 .78 9 .4 9 0H19C19.27 0 19.52 .11 19.71 .29C19.89 .48 20 .73 20 1V6.5C19.34 6.5 18.7 6.76 18.23 7.23C17.76 7.7 17.5 8.34 17.5 9C17.5 9.66 17.76 10.3 18.23 10.77C18.7 11.24 19.34 11.5 20 11.5V17C20 17.27 19.89 17.52 19.71 17.71C19.52 17.89 19.27 18 19 18H9Z"/></svg>
+                  不可折抵折價券
+                </div>
+                <div style="font-size:9px;color:#424242;margin-top:3px;">累積:87件 成團:1件</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px;">
+                  <span style="font-size:9px;color:#424242;">(尚餘17件)</span>
+                  <div style="display:flex;">
+                    <button style="width:22px;height:22px;border:none;background:transparent;cursor:pointer;display:grid;place-items:center;color:#ca1f1d;"><svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                    <button style="width:22px;height:22px;border:none;background:transparent;cursor:pointer;display:grid;place-items:center;color:#ca1f1d;"><svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+                  </div>
+                </div>
+              </div>
+              <!-- 卡 2：一般（無不可折抵）-->
+              <div class="phone-card">
+                <div class="img-wrap" style="background:#f0f0f0;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><svg style="width:28px;opacity:.2" viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                <div style="font-size:11px;line-height:1.3;margin:6px 2px 3px;color:#212121;">美心月餅禮盒精選組合 8入裝</div>
+                <div style="display:flex;justify-content:space-between;margin:0 2px 2px;align-items:center;">
+                  <span style="font-size:10px;color:white;background:#02835E;border-radius:8px;padding:1px 5px;">宅配</span>
+                  <span style="font-size:10px;color:#9e9e9e;text-decoration:line-through;">$680</span>
+                </div>
+                <div style="font-size:18px;color:#ca1f1d;margin:0 2px;">$499</div>
+                <div style="margin-top:4px;padding:3px 0;text-align:center;border:1px solid #ca1f1d;border-radius:3px;color:#ca1f1d;font-size:9px;font-weight:700;">倒數3個月</div>
+                <div style="font-size:9px;color:#424242;margin-top:19px;">累積:42件 成團:1件</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px;">
+                  <span style="font-size:9px;color:#424242;">(尚餘58件)</span>
+                  <div style="display:flex;">
+                    <button style="width:22px;height:22px;border:none;background:transparent;cursor:pointer;display:grid;place-items:center;color:#ca1f1d;"><svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                    <button style="width:22px;height:22px;border:none;background:transparent;cursor:pointer;display:grid;place-items:center;color:#ca1f1d;"><svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 桌機框：瀏覽紀錄側欄 -->
+      <div class="device-wrap">
+        <div class="device-label">🖥 桌機側欄（瀏覽紀錄 / 追蹤清單）</div>
+        <div class="device-hint">橫式卡片，全寬排列</div>
+        <div class="desktop-frame">
+          <div class="desktop-bar">
+            <div class="desktop-dot" style="background:#ff5f57;"></div>
+            <div class="desktop-dot" style="background:#ffbd2e;"></div>
+            <div class="desktop-dot" style="background:#28c940;"></div>
+          </div>
+          <div class="desktop-content">
+            <div class="drawer-title">瀏覽紀錄</div>
+            <!-- 橫式卡 1：D3 -->
+            <div style="background:white;border-bottom:1px solid #e0e0e0;padding:8px;display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;gap:10px;align-items:flex-start;">
+                <div style="flex-shrink:0;width:60px;height:60px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;"><svg style="width:28px;opacity:.2" viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;line-height:1.3;color:#212121;margin-bottom:3px;">【御衣坊】檸檬水晶濃縮洗衣精補充包2000ml</div>
+                  <div style="font-size:18px;color:#ca1f1d;">$399</div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:11px;color:white;background:#02835E;border-radius:8px;padding:1px 6px;">宅配</span>
+                <div style="display:flex;">
+                  <button style="width:26px;height:26px;border:none;background:transparent;color:#ca1f1d;display:grid;place-items:center;"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                  <button style="width:26px;height:26px;border:none;background:transparent;color:#ca1f1d;display:grid;place-items:center;"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;font-size:11px;color:#FF6F00;">
+                <svg style="width:12px;height:11px;margin-right:3px;flex-shrink:0;" viewBox="0 0 20 18" fill="none"><path fill="#FF6F00" d="M9 18C9 17.6 8.84 17.22 8.56 16.94C8.28 16.66 7.9 16.5 7.5 16.5C7.1 16.5 6.72 16.66 6.44 16.94C6.16 17.22 6 17.6 6 18H1C.73 18 .48 17.89 .29 17.71C.11 17.52 0 17.27 0 17V1C0 .73 .11 .48 .29 .29C.48 .11 .73 0 1 0H6C6 .4 6.16 .78 6.44 1.06C6.72 1.34 7.1 1.5 7.5 1.5C7.9 1.5 8.28 1.34 8.56 1.06C8.84 .78 9 .4 9 0H19C19.27 0 19.52 .11 19.71 .29C19.89 .48 20 .73 20 1V6.5C19.34 6.5 18.7 6.76 18.23 7.23C17.76 7.7 17.5 8.34 17.5 9C17.5 9.66 17.76 10.3 18.23 10.77C18.7 11.24 19.34 11.5 20 11.5V17C20 17.27 19.89 17.52 19.71 17.71C19.52 17.89 19.27 18 19 18H9Z"/></svg>
+                不可折抵折價券
+              </div>
+            </div>
+            <!-- 橫式卡 2：一般 -->
+            <div style="background:white;border-bottom:1px solid #e0e0e0;padding:8px;display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;gap:10px;align-items:flex-start;">
+                <div style="flex-shrink:0;width:60px;height:60px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;"><svg style="width:28px;opacity:.2" viewBox="0 0 24 24" fill="#999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                <div style="flex:1;">
+                  <div style="font-size:12px;line-height:1.3;color:#212121;margin-bottom:3px;">美心月餅禮盒精選組合 8入裝</div>
+                  <div style="font-size:18px;color:#ca1f1d;">$499</div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:11px;color:white;background:#02835E;border-radius:8px;padding:1px 6px;">宅配</span>
+                <div style="display:flex;">
+                  <button style="width:26px;height:26px;border:none;background:transparent;color:#ca1f1d;display:grid;place-items:center;"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                  <button style="width:26px;height:26px;border:none;background:transparent;color:#ca1f1d;display:grid;place-items:center;"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── 工程師說明 ─────────────── -->
+  <section>
+    <div class="section-title">實作說明</div>
+    <table style="border-collapse:collapse;font-size:13px;width:100%;max-width:640px;">
+      <thead>
+        <tr style="background:#eeeeee;">
+          <th style="text-align:left;padding:8px 12px;border:1px solid #e0e0e0;">元件</th>
+          <th style="text-align:left;padding:8px 12px;border:1px solid #e0e0e0;">位置</th>
+          <th style="text-align:left;padding:8px 12px;border:1px solid #e0e0e0;">觸發條件</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>PecProductCard</code></td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;">倒數日期按鈕下方</td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>reward_exclude == 'Y'</code></td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>PecProductRowSmallA</code></td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;">配送方式 badge 下方</td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>reward_exclude == 'Y'</code></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>PecProductRowSmallB</code></td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;">配送方式 badge 下方</td>
+          <td style="padding:8px 12px;border:1px solid #e0e0e0;"><code>reward_exclude == 'Y'</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#757575;margin-top:12px;">icon 使用 <code>$pec_ticket</code>（PromoCodeTicket.vue），顏色 <code>#FF6F00</code>，字級 <code>text-caption</code>。</p>
+  </section>
+
 </body>
 </html>
